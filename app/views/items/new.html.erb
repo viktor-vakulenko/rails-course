@@ -1,0 +1,9 @@
+<h1>Ruby on Rails</h1>
+<h2><strong>Form</strong></h2>
+<%= form_with url: "/items", method: :'post' do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %>
+  <%= label_tag :amount %>
+  <%= text_field_tag :amount %>
+  <%= submit_tag "Add item", class: "Add item" %>
+<% end %>

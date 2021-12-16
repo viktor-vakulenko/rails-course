@@ -1,8 +1,16 @@
-<%# @items.each do |item| %>
-<!--  <ul>-->
-<!--    <li><b>ID: </b> <%#= item.id %></li>-->
-<!--    <li><b>NAME: </b><%#= item.name %></li>-->
-<!--    <li><b>PRICE: </b><%#= item.amount %></li>-->
-<!--    <li><b>CHARACTERISTICS:</b> <%#= item.description %></li>-->
-<!--  </ul>-->
-<%# end %>
+<h2>All items</h2>
+<% @items.each do |item| %>
+  <ul>
+    <li><b>ID: </b> <%= item.id %></li>
+    <li><b>NAME: </b><%= link_to item.name, item_path(item) %><li>
+    <li><b>PRICE: </b><%= item.amount %></li>
+    <li><b>CHARACTERISTICS:</b> <%= item.description %></li>
+    <li><%= button_to 'DELETE', item_path(item), method: :delete %></li>
+  </ul>
+<% end %>
+
+
+<br>
+<br>
+<br>
+<h3><%= link_to 'add new item',  new_item_path %></h3>
