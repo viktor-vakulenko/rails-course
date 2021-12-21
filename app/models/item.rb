@@ -3,9 +3,17 @@ class Item < ApplicationRecord
   validates :amount, numericality: { greater_than: 0, allow_nil: true }
   validates :name, presence: true
 
-after_initialize { p 'initialized' }
-  after_save { p 'saved' }
-  after_create { p 'created' }
-  after_update { p 'updated' }
-  after_destroy { p 'destroy' } # Item.last.destroy
+  has_many :positions
+  has_many :carts, through: :positions
+  has_many :comments, as: :commentable
+
+  # after_initialize { p 'initialized' }
+  after_save { p '****____saved____****' }
+  after_create { p '----****____created____****------' }
+  after_update { p '****____updated____****' }
+  after_destroy { p '****____destroy____****' } # Item.last.destroy
+
+  # TODO:  for carts_items
+  # has_and_belongs_to_many :carts
+
 end

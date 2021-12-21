@@ -1,16 +1,32 @@
 <h2>All items</h2>
-<% @items.each do |item| %>
-  <ul>
-    <li><b>ID: </b> <%= item.id %></li>
-    <li><b>NAME: </b><%= link_to item.name, item_path(item) %><li>
-    <li><b>PRICE: </b><%= item.amount %></li>
-    <li><b>CHARACTERISTICS:</b> <%= item.description %></li>
-    <li><%= button_to 'DELETE', item_path(item), method: :delete %></li>
-  </ul>
+
+<% if @items.empty? %>
+  <h2>No Items Found</h2>
+  <h3><%= link_to 'add new item', new_item_path %></h3>
+<% else %>
+  <table>
+    <tr>
+      <th style="border:2px solid darkred">ID:</th>
+      <th style="border:2px solid darkred">NAME:</th>
+      <th></th>
+      <th style="border:2px solid darkred">PRICE:</th>
+      <th style="border:2px solid darkred">CHARACTERISTICS:</th>
+      <th style="border:2px solid darkred">Rating:</th>
+    </tr>
+
+    <% @items.sort.each do |item| %>
+      <tr>
+        <td style="border:1px solid black"><%= item.id %></td>
+        <td style="border:1px solid black"><%= link_to item.name, item_path(item) %>
+        <td>
+        <td style="border:1px solid black"><%= item.amount %></td>
+        <td style="border:1px solid black"><%= item.description %></td>
+        <td style="border:1px solid black"><%= link_to 'minus   ', downvote_item_path(item) %><%= item.votes_count %><%= link_to '  plus', upvote_item_path(item) %></td>
+        <td><%= button_to 'EDIT', item_path(item) + '/edit', method: :get %></td>
+        <td><%= button_to 'DELETE', item_path(item), method: :delete %></td>
+      </tr>
+    <% end %>
+
+  </table>
+  <h3><%= link_to 'Items amount > 1000', expensive_items_path %></h3>
 <% end %>
-
-
-<br>
-<br>
-<br>
-<h3><%= link_to 'add new item',  new_item_path %></h3>
