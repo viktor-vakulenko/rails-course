@@ -15,8 +15,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item = Item.create(items_params)
-    if item.persisted?
+    @item = Item.create(items_params)
+    if @item.persisted?
       flash[:success] = 'Item saved!'
 
       # render body: 'Hello, world'
@@ -28,7 +28,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  def new; end
+  def new
+    @item = Item.new
+  end
 
   def edit
     render body: 'Error 404', status: 404 unless @item
@@ -84,7 +86,7 @@ class ItemsController < ApplicationController
   private
 
   def items_params
-    params.permit(:name, :amount, :real, :description, :weight, :votes_count)
+    params.require(:item).permit(:name, :amount, :real, :description, :weight, :votes_count)
   end
 
   def find_item

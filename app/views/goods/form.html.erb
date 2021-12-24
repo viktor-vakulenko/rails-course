@@ -1,0 +1,9 @@
+<% form_for :goods, @goods, :url => { :action => "create" }, :html => {:id => 'new_goods' } do |f| %>
+  <label>Название</label>
+  <%= f.text_field :name %><br />
+  <label>Описание</label>
+  <%= f.text_area :description %><br />
+  <label>Цена</label>
+  <%= f.text_field :price %><br />
+  <%= submit_tag 'Добавить' %>
+<% end %>

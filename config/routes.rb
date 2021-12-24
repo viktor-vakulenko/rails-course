@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get 'downvote', on: :member
     get 'expensive', on: :collection
   end
-
+  resources :goods
   root to: 'items#index'
 
 

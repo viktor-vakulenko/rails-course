@@ -29,6 +29,17 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
-  description: 'Bla bla'
+ru:
+  item:
+    description: 'Опис'
+
+  activerecord:
+    models:
+      item: 'Товар'
+    attributes:
+      item:
+        amount: 'Ціна'
+        name: 'Им"я'
+        description: 'Опис'
+        weight: 'Вага'
+
