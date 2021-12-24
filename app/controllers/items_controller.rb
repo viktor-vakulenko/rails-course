@@ -1,25 +1,30 @@
 class ItemsController < ApplicationController
-  layout false
+  # layout false
   skip_before_action :verify_authenticity_token
 
   before_action :find_item, only: %i[show edit update create destroy upvote downvote expensive]
-  before_action :is_admin, only: %i[destroy]
+  # before_action :admin?, only: %i[destroy]
 
 
   def index
     @items = Item.all
-    render text: @items.map do |item|
-      "#{item.name}:#{item.amount}:"
-    end
+    # @items = Item
+    # @items = @items.where('amount >= ?', params[:price_from]) if params[:price_from]
+    # @items = @item.where('created_at >= ?', 1.day.ago) if params[:today]
+    # @items = @items.order(:id)
   end
 
   def create
     item = Item.create(items_params)
     if item.persisted?
+      flash[:success] = 'Item saved!'
+
       # render body: 'Hello, world'
       redirect_to items_path
     else
-      render json: item.errors, status: :unprocessable_entity
+      # render json: item.errors, status: :unprocessable_entity
+      flash.now[:error] = 'Price is required'
+      render :new
     end
   end
 
@@ -41,16 +46,20 @@ class ItemsController < ApplicationController
   def update
     if @item.update(items_params)
       redirect_to item_path
+      flash[:success] = 'Item updated'
     else
-      render json: item.errors, status: :unprocessable_entity
+      flash.now[:error] = 'Item not updated'
+      render :edit
     end
   end
 
   def destroy
     if @item.destroy.destroyed?
+      flash.now[:success] = 'Item deleted'
       redirect_to items_path
     else
-      render json: item.errors, status: :unprocessable_entity
+      flash.now[:error] = 'Item not deleted'
+      render :index
     end
   end
 

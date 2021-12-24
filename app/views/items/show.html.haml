@@ -1,0 +1,12 @@
+%h2{style: "color:red"}  Show items
+%h1 Ruby on Rails
+%h4 Name: #{ @item.name }
+%h4 Price: #{  @item.amount }
+%h4 Decription: #{url_to_content(@item.description)}
+-#%h4 Link: #{ url_to_content(@item.description)}
+-#
+<br>
+= button_to 'Home', items_path , method: :get
+= button_to "Edit Item #{@item.name }", edit_item_path , method: :get
+= button_to 'DELETE', item_path(@item), method: :get
+= render partial: 'shared/email'
