@@ -99,6 +99,5 @@ class ItemsController < ApplicationController
     true
   end
 
-
 end
 
