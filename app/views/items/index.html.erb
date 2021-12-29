@@ -1,3 +1,6 @@
+<%
+  require 'csv'
+%>
 <h2>All items</h2>
 
 <% if @items.empty? %>
@@ -32,5 +35,45 @@
   <h3><%= link_to 'admin panel', admin_users_count_path %></h3>
 
   <h3><%= link_to 'Items amount > 1000', expensive_items_path %></h3>
-  <%= render partial: 'shared/email'  %>
+  <%= render partial: 'shared/email' %>
 <% end %>
+
+<h3>PDF generate</h3>
+
+<% Prawn::Document.generate("generated-files/pdf/hello.pdf") do %>
+    <% text "Nice" %>
+    <% text "Nice" %>
+    <% text "Nice" %>
+<% end %>
+
+<h3>CSV generate</h3>
+
+<%
+  CSV.open("generated-files/csv/test.csv", "w") do |csv|
+    csv << %w[row of CSV data]
+    csv << %w[another row]
+  end
+%>
+
+<h3>CSV generate</h3>
+
+<%
+  CSV.open("generated-files/csv/test.csv", "w") do |csv|
+    csv << %w[row of CSV data]
+    csv << %w[another row]
+    csv << %w[another one row]
+  end
+%>
+
+<%
+  Axlsx::Package.new do |p|
+    p.workbook.add_worksheet(:name => "Pie Chart") do |sheet|
+      sheet.add_row ["Simple Pie Chart"]
+      %w(first second third fourth).each { |label| sheet.add_row [label, rand(124)+1] }
+      sheet.add_chart(Axlsx::Pie3DChart, :start_at => [0,5], :end_at => [15, 25], :title => "example 3: Pie Chart") do |chart|
+        chart.add_series :data => sheet["B2:B5"], :labels => sheet["A2:A5"],  :colors => %w[FF0000 00FF00 0000FF 0FF0FF]
+      end
+    end
+    p.serialize('generated-files/excel/simple4.xlsx')
+  end
+%>

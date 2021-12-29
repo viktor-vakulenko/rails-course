@@ -30,10 +30,16 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # gem 'axlsx' # gem for excel generation
+  gem 'axlsx'
+  gem 'axlsx_rails'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot'
   gem 'haml-rails'
+  gem 'prawn' # gem for pdf generation
   gem 'pry'
   gem 'rspec-rails'
+  gem 'rubyzip'
   gem 'shoulda-matchers'
   gem 'simple_form'
 end
@@ -58,4 +64,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
